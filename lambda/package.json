@@ -1,0 +1,16 @@
+{
+  "name": "blog-publish",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "repository": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "aws-sdk": "^2.815.0"
+  }
+}

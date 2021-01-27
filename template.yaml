@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  blog-publish
+  
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  BlogPublishFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda/
+      Handler: build/app.lambdaHandler
+      Runtime: nodejs12.x
