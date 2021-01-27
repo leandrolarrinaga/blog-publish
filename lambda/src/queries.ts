@@ -11,6 +11,7 @@ export const postContainers = (siteId: string) => `
   postContainerCollection(where:{siteId:{sys:{id:"${siteId}"}}}){
     items{
       blogName
+      templateUrl
     }
   }
 }
