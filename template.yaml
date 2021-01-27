@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: >
   blog-publish
-  
+
 Globals:
   Function:
     Timeout: 3
@@ -14,3 +14,6 @@ Resources:
       CodeUri: lambda/
       Handler: build/app.lambdaHandler
       Runtime: nodejs12.x
+      Environment:
+        Variables:
+          CONTENTFUL_GRAPHQL_ENDPOINT: https://graphql.contentful.com/content/v1/spaces/nac4rsvtoh64/environments/master?access_token=sQUXeaAls6xUIb2fB4Y6KCbh9P2jr5Jv-Wwyx8xf79g
