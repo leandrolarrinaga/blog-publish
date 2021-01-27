@@ -6,7 +6,7 @@ export const site = (id: string): string => `
     }
   }`
     ;
-export const allPostContainersBySiteId = (siteId: string) => `
+export const postContainers = (siteId: string) => `
 {
   postContainerCollection(where:{siteId:{sys:{id:"${siteId}"}}}){
     items{
