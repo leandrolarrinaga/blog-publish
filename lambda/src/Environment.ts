@@ -1,5 +1,5 @@
 class Environment {
-    readonly CONTENTFUL_GRAPHQL_ENDPOINT: String;
+    readonly CONTENTFUL_GRAPHQL_ENDPOINT: string;
 
     private constructor() {
         if (!process.env.CONTENTFUL_GRAPHQL_ENDPOINT) {

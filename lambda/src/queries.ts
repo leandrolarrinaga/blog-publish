@@ -1,7 +1,7 @@
-export const site = (id: string) => `
+export const site = (id: string): string => `
     {
-    site(id: "${id}") {
-      siteName      
-    }
-  }`
-;
+        site(id: "${id}") {
+            siteName      
+        }
+    }`
+    ;
