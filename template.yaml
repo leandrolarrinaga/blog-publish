@@ -19,3 +19,4 @@ Resources:
           CONTENTFUL_GRAPHQL_ENDPOINT: https://graphql.contentful.com/content/v1/spaces/nac4rsvtoh64/environments/master?access_token=sQUXeaAls6xUIb2fB4Y6KCbh9P2jr5Jv-Wwyx8xf79g
           MERGER_LAMBDA: https://2yfqcub52i.execute-api.us-east-2.amazonaws.com/default/merger
           BLOGS_LAMBDA: https://2yfqcub52i.execute-api.us-east-2.amazonaws.com/default/aws-nodejs-dev-webBlogs
+          REGION: us-east-2
