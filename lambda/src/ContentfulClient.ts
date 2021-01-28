@@ -1,7 +1,7 @@
 import axios from "axios";
 import Environment from "./Environment";
 import ContentfulSite from "./models/ContentfulSite";
-import * as queries from "./queries"
+import queries from "./queries"
 
 async function fetch(query: string): Promise<string> {
     return await (await axios.post(Environment.CONTENTFUL_GRAPHQL_ENDPOINT, query)).data;

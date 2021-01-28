@@ -1,12 +1,12 @@
-export const site = (id: string): string => `
+const site = (id: string): string => `
     {
     site(id: "${id}") {
       siteName,
       s3BucketName
     }
   }`
-    ;
-export const postContainers = (siteId: string) => `
+  ;
+const postContainers = (siteId: string) => `
 {
   postContainerCollection(where:{siteId:{sys:{id:"${siteId}"}}}){
     items{
@@ -16,3 +16,8 @@ export const postContainers = (siteId: string) => `
   }
 }
 `;
+
+export default {
+  site,
+  postContainers
+}
