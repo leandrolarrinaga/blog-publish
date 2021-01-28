@@ -1,12 +1,19 @@
 class Environment {
     readonly CONTENTFUL_GRAPHQL_ENDPOINT: string;
+    readonly MERGER_LAMBDA_ENDPOINT: string;
+    readonly BLOG_LAMBDA_ENDPOINT: string;
 
     private constructor() {
-        if (!process.env.CONTENTFUL_GRAPHQL_ENDPOINT) {
+        if (!process.env.CONTENTFUL_GRAPHQL_ENDPOINT ||
+            !process.env.BLOGS_LAMBDA ||
+            !process.env.MERGER_LAMBDA
+        ) {
             throw new Error("Lambda Environment is not configured");
         }
 
         this.CONTENTFUL_GRAPHQL_ENDPOINT = process.env.CONTENTFUL_GRAPHQL_ENDPOINT;
+        this.MERGER_LAMBDA_ENDPOINT = process.env.MERGER_LAMBDA;
+        this.BLOG_LAMBDA_ENDPOINT = process.env.BLOGS_LAMBDA;
     }
 
     private static _instance: Environment;

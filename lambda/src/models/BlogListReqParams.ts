@@ -3,5 +3,5 @@ export default interface BlogListReqParams {
         owner: string,
         categories: string
     },
-    readonly operation: "list"
+    operation: string
 }
