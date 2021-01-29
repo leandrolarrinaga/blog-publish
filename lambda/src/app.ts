@@ -21,7 +21,7 @@ exports.lambdaHandler = async (event: APIGatewayEvent, context: APIGatewayProxyE
         const contentfulSiteData = await ContentfulClient.getSite(body.siteId);
 
         for (const blog of contentfulSiteData.blogs) {
-            await LambdaClient.merge(await buildMergerParams(blog, contentfulSiteData));
+            await merge(blog, contentfulSiteData);
         }
 
         response.body = "ok";
@@ -35,11 +35,23 @@ exports.lambdaHandler = async (event: APIGatewayEvent, context: APIGatewayProxyE
     return response
 };
 
-async function buildMergerParams(blog: blogs, site: ContentfulSite): Promise<MergerParams> {
-    const blogPosts = await LambdaClient.getBlogPosts({ query: { owner: site.name, categories: blog.name }, operation: "list" });
+async function merge(blog: blogs, site: ContentfulSite) {
+    const mergeParams = await buildMergerParams(blog, site);
+
+    if (!mergeParams)
+        return
+
+    await LambdaClient.merge(mergeParams);
+}
+
+async function buildMergerParams(blog: blogs, site: ContentfulSite): Promise<MergerParams | null> {
+    const blogPosts: any[] = (await LambdaClient.getBlogPosts({ query: { owner: site.name, categories: blog.name }, operation: "list" })).data;
+
+    if (!blogPosts.length)
+        return null;
 
     const jsonUrl = await S3Writer.saveBlogAsJson({ name: blog.name, data: blogPosts }, { bucket: site.bucket, prefix: `${site.name}/blogs` })
-        .catch(() => { throw new Error("Unable to save") });
+        .catch((error) => { throw new Error("Unable to save: " + error.message) });
 
     return mapMergerParams(jsonUrl, blog, { name: site.name, bucket: site.bucket })
 }

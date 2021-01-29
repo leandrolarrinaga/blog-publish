@@ -1,22 +1,19 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import Environment from "./Environment";
 import ContentfulSite from "./models/ContentfulSite";
 import queries from "./queries"
 
-async function fetch(query: string): Promise<string> {
-    return await (await axios.post(Environment.CONTENTFUL_GRAPHQL_ENDPOINT, query)).data;
+async function fetch(query: string): Promise<AxiosResponse> {
+    return axios.post(Environment.CONTENTFUL_GRAPHQL_ENDPOINT, { query: query });
 }
 
 async function getSite(id: string): Promise<ContentfulSite> {
     let siteResp = fetch(queries.site(id));
     let blogsResp = fetch(queries.postContainers(id));
 
-    await Promise.all([siteResp, blogsResp]);
+    let result: AxiosResponse[] = await Promise.all([siteResp, blogsResp]);
 
-    let siteJson = JSON.parse(await siteResp);
-    let blogsJson = JSON.parse(await blogsResp);
-
-    return mapSite(siteJson, blogsJson);
+    return mapSite(result[0].data, result[1].data);
 }
 
 function mapSite(siteObj: any, blogObj: any): ContentfulSite {
