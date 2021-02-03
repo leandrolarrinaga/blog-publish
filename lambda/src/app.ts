@@ -25,7 +25,7 @@ exports.lambdaHandler = async (event: APIGatewayEvent, context: APIGatewayProxyE
             await merge(blog, contentfulSiteData);
         }
 
-        response.body = "ok";
+        response.body = `Blogs for contentful site with id ${body.siteId} have been built`;
         response.statusCode = 200;
 
     } catch (err) {
