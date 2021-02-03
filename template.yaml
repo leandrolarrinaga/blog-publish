@@ -20,3 +20,4 @@ Resources:
           MERGER_LAMBDA: https://2yfqcub52i.execute-api.us-east-2.amazonaws.com/default/merger
           BLOGS_LAMBDA: https://2yfqcub52i.execute-api.us-east-2.amazonaws.com/default/aws-nodejs-dev-webBlogs
           REGION: us-east-2
+          ENVIRONMENT: DEV

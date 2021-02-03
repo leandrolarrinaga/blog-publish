@@ -5,6 +5,7 @@ import LambdaClient from "./LambdaClient";
 import S3Writer from "./S3Writer";
 import MergerParams from "./models/MergerReqParams";
 import ContentfulSite, { blogs } from "./models/ContentfulSite";
+import Environment from "./Environment";
 
 exports.lambdaHandler = async (event: APIGatewayEvent, context: APIGatewayProxyEvent): Promise<APIGatewayProxyStructuredResultV2> => {
     let response = {
@@ -29,11 +30,14 @@ exports.lambdaHandler = async (event: APIGatewayEvent, context: APIGatewayProxyE
 
     } catch (err) {
         console.log(err);
-        return err;
+
+        if (isDevEnvironment()) {
+            response.body = err.message;
+        }
     }
 
     return response
-};
+}
 
 async function merge(blog: blogs, site: ContentfulSite) {
     const mergeParams = await buildMergerParams(blog, site);
@@ -67,4 +71,8 @@ function mapMergerParams(dataUrl: string, blog: { name: string, templateUrl: str
             folder: `${site.name}/blogs/${blog.name}`
         }
     }
+}
+
+function isDevEnvironment() {
+    return Environment.ENVIRONMENT === "DEV" ? true : false;
 }
